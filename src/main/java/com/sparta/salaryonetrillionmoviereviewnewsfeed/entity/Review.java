@@ -24,34 +24,32 @@ public class Review {
     @Column(name = "review_id")
     private Long id;
 
-    @Column(name = "review_content")
+    @Column(name = "review_content", nullable = false)
     private String content;
 
     @CreatedDate
-    @Column(updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
-    @Column(name = "review_like")
+    @Column(name = "review_like", nullable = false)
     private int reviewLike;
 
-    @Column(name = "review_movie_rating")
+    @Column(name = "review_movie_rating", nullable = false)
     private float movieRating;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id")
+    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
     @OneToMany(mappedBy = "reviewComment")
-    private List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews;
 
 }
