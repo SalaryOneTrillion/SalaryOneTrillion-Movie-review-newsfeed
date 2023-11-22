@@ -24,16 +24,16 @@ public class Movie {
     private Long id;
 
     @Column(name="movie_title",nullable = false,length = 30)
-    private String movietitle;
+    private String title;
 
     @Column(name="movie_director", nullable = false,length = 20)
-    private String moviedirector;
+    private String director;
 
     @Column(name = "movie_actor", nullable = false,length = 100)
-    private String movieactor;
+    private String actor;
 
     @Column(name = "movie_release" ,nullable = false)
-    private LocalDateTime movieRelease;
+    private LocalDateTime Release;
 
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
