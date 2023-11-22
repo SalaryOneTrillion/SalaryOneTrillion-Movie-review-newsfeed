@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class ReviewComment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comm_id", nullable = false)
     private Long id;
 
@@ -35,12 +36,13 @@ public class ReviewComment {
     private LocalDateTime modifiedAt;
 
 
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id")
-    private Review review;
+    @JoinColumn(name = "review_id")
+    private ReviewComment reviewComment;
 
 }
