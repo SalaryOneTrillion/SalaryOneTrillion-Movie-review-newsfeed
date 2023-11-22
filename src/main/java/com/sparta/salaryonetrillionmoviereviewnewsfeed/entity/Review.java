@@ -24,23 +24,23 @@ public class Review {
     @Column(name = "review_id")
     private Long id;
 
-    @Column(name = "review_content")
+    @Column(name = "review_content", nullable = false)
     private String content;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
 
-    @Column(name = "review_like")
+    @Column(name = "review_like", nullable = false)
     private int reviewLike;
 
-    @Column(name = "review_movie_rating")
+    @Column(name = "review_movie_rating", nullable = false)
     private float movieRating;
 
     @ManyToOne
