@@ -29,12 +29,10 @@ public class Review {
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
 
     @Column(name = "review_like", nullable = false)
