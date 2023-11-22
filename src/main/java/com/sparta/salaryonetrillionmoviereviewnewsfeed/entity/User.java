@@ -28,25 +28,23 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @NotEmpty
-    @Column(name = "user_username", nullable = false, length = 20)
+    @Column(name = "user_username", unique = true, nullable = false, length = 20)
     private String username;
 
     @Column(name = "user_password", nullable = false)
     private String password;
 
-    @Column(name = "user_email", nullable = false, length = 50)
+    @Column(name = "user_email", unique = true, nullable = false, length = 50)
     private String email;
 
-    @Column(name = "user_nickname", nullable = false, length = 10)
+    @Column(name = "user_nickname", unique = true, nullable = false, length = 10)
     private String nickname;
 
     @Column(name = "user_intro", nullable = false)
     private String intro;
 
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "user_created_at", updatable = false)
+    @Column(name = "user_created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")
