@@ -27,12 +27,10 @@ public class ReviewComment {
 
     @CreatedDate
     @Column(name = "review_created_At", updatable = false, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "review_modified_At",updatable = true, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
 
 
