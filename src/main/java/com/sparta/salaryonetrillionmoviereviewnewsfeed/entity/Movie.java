@@ -20,26 +20,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String director;
 
-    @Column(nullable = false, length = 100)
-    private String actor;
+    @Column(nullable = false)
+    private String release_date;
 
     @Column(nullable = false)
-    private LocalDateTime release_date;
+    private String genre;
 
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
-
-//    @OneToMany(mappedBy = "movie")
-//    private List<moivecategory> moivecategories;
-
 }
