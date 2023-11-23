@@ -39,6 +39,6 @@ public class Movie {
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "movie")
-    private List<moivecategory> moivecategories;
+    private List<Movie> Movie;
 
 }
