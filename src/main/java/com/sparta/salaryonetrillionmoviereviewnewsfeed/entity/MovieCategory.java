@@ -15,10 +15,10 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 public class MovieCategory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_category_id", length=255, nullable = false)
-    @NotEmpty
     private long movie_categoty_id;
 
     @NotEmpty
