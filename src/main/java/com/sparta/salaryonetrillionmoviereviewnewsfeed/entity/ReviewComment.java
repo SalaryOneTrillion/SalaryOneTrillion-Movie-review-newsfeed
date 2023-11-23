@@ -33,8 +33,6 @@ public class ReviewComment {
     @Column(updatable = true, nullable = false)
     private LocalDateTime modifiedAt;
 
-
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
