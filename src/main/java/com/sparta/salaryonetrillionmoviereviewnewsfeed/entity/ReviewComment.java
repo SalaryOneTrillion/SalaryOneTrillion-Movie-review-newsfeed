@@ -19,21 +19,19 @@ public class ReviewComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comm_id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "comm_content", nullable = false, length = 255)
+    @Column(nullable = false, length = 255)
     private String content;
 
     @CreatedDate
-    @Column(name = "review_created_At", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "review_modified_At",updatable = true, nullable = false)
+    @Column(updatable = true, nullable = false)
     private LocalDateTime modifiedAt;
-
-
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -41,6 +39,6 @@ public class ReviewComment {
 
     @ManyToOne
     @JoinColumn(name = "review_id")
-    private ReviewComment reviewComment;
+    private Review review;
 
 }

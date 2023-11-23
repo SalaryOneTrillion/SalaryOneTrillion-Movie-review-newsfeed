@@ -21,28 +21,29 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column
     private Long id;
 
-    @Column(name = "user_username", unique = true, nullable = false, length = 20)
+    @Column(unique = true, nullable = false, length = 20)
     private String username;
 
-    @Column(name = "user_password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "user_email", unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 50)
     private String email;
 
-    @Column(name = "user_nickname", unique = true, nullable = false, length = 10)
+    @Column(unique = true, nullable = false, length = 10)
     private String nickname;
 
-    @Column(name = "user_intro", nullable = false)
-    private String intro;
+    @Column(nullable = false)
+    private String introduction;
 
     @CreatedDate
-    @Column(name = "user_created_at", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")

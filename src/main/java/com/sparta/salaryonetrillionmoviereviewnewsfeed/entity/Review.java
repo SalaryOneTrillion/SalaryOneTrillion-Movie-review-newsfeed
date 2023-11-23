@@ -21,10 +21,10 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
+    @Column
     private Long id;
 
-    @Column(name = "review_content", nullable = false)
+    @Column(nullable = false)
     private String content;
 
     @CreatedDate
@@ -35,21 +35,21 @@ public class Review {
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
-    @Column(name = "review_like", nullable = false)
+    @Column(nullable = false)
     private int reviewLike;
 
-    @Column(name = "review_movie_rating", nullable = false)
+    @Column(nullable = false)
     private float movieRating;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", nullable = false)
+    @JoinColumn(nullable = false)
     private Movie movie;
 
-    @OneToMany(mappedBy = "reviewComment")
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "review")
+    private List<ReviewComment> reviewComments;
 
 }

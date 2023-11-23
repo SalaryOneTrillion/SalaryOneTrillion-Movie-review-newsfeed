@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -20,25 +21,25 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_id")
+    @Column
     private Long id;
 
-    @Column(name="movie_title",nullable = false,length = 30)
+    @Column(nullable = false, length = 30)
     private String title;
 
-    @Column(name="movie_director", nullable = false,length = 20)
+    @Column(nullable = false, length = 20)
     private String director;
 
-    @Column(name = "movie_actor", nullable = false,length = 100)
+    @Column(nullable = false, length = 100)
     private String actor;
 
-    @Column(name = "movie_release" ,nullable = false)
-    private LocalDateTime Release;
+    @Column(nullable = false)
+    private LocalDateTime release_date;
 
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "movie")
-    private List<moivecategory> moivecategories;
+//    @OneToMany(mappedBy = "movie")
+//    private List<moivecategory> moivecategories;
 
 }
