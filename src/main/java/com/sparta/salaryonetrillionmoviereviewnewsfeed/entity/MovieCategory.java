@@ -19,8 +19,7 @@ public class MovieCategory {
     // 23
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_category_id", length=255, nullable = false)
-    @NotEmpty
+    @Column(name = "movie_category_id")
     private long movie_categoty_id;
 
     @NotEmpty
