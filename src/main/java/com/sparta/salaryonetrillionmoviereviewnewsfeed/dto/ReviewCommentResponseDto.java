@@ -1,10 +1,9 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.dto;
-import lombok.Getter
-import lombok.Setter
+
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.ReviewComment;
 import java.time.LocalDateTime;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.ReviewComment;
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

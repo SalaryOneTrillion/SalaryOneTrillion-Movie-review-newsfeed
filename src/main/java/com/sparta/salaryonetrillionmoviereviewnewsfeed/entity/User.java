@@ -3,6 +3,8 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,6 +44,10 @@ public class User {
     @Column(nullable = false)
     private String introduction;
 
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private UserRoleEnum role;
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
@@ -51,4 +57,15 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<ReviewComment> reviewComments;
+
+    public User(String username, String password, String nickname, String email, String introduction,
+            UserRoleEnum role) {
+
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.introduction = introduction;
+        this.role = role;
+    }
 }

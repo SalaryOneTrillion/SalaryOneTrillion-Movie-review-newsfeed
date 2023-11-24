@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReviewRequestDto {
-    private String content;
-    private Long movieRating;
+public class LoginRequestDto {
+
+    String username;
+    String password;
 }

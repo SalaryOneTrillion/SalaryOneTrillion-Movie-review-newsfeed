@@ -52,8 +52,10 @@ public class Review {
     @OneToMany(mappedBy = "review")
     private List<ReviewComment> reviewComments;
 
-    public Review(ReviewRequestDto dto, Movie movie, User user) {
-        this.content = dto.getContent();
+    public Review(ReviewRequestDto requestDto, Movie movie, User user) {
+        this.content = requestDto.getContent();
+        this.movieRating = requestDto.getMovieRating();
+        this.reviewLike = 0L;
         this.movie = movie;
         this.user = user;
     }

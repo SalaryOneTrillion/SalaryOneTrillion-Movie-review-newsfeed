@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/movies")
 public class MovieController {
 
     private final MovieService movieService;
 
-    @GetMapping
+    @GetMapping("/movies")
     public ResponseEntity<Page<MoviePageResponseDto>> getMovies(
             @RequestParam int page,
             @RequestParam int size,
@@ -29,7 +28,7 @@ public class MovieController {
         return ResponseEntity.status(200).body(movieService.getMovies(page-1, size, sortBy, isAsc));
     }
 
-    @GetMapping("/{movieId}")
+    @GetMapping("/movies/{movieId}")
     public ResponseEntity<MovieResponseDto> getMovie(@PathVariable Long movieId) {
 
         return ResponseEntity.status(200).body(movieService.getMovie(movieId));
