@@ -1,5 +1,6 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.entity;
 
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.ReviewRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,4 +53,7 @@ public class Review {
     @OneToMany(mappedBy = "review")
     private List<ReviewComment> reviewComments;
 
+    public Review(ReviewRequestDto dto) {
+        this.content = dto.getContent();
+    }
 }

@@ -11,7 +11,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +19,13 @@ public class MovieAdminService {
 
     private final MovieRepository movieRepository;
 
-    @Autowired
-    private Environment environment;
-    private final String apiSecretKey;
+//    private Environment environment;
+    private final String apiSecretKey = "92b39cc8713fd2e0fba78a7d647cce4d";
 
     public MovieAdminService(MovieRepository movieRepository, Environment environment) {
         this.movieRepository = movieRepository;
-        this.environment = environment;
-        this.apiSecretKey = environment.getProperty("admin.key");
+//        this.environment = environment;
+//        this.apiSecretKey = environment.getProperty("admin.key");
     }
 
     public void updateMovies(String curPage, String itemPerPage, String openStartDt,
