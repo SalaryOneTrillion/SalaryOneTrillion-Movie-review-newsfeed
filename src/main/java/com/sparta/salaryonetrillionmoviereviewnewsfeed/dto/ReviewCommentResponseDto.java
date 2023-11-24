@@ -1,24 +1,20 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.dto;
-
+import lombok.Getter
+import lombok.Setter
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.ReviewComment;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
-
 public class ReviewCommentResponseDto {
-    private String nickname;
-    private String content;
-    private LocalDateTime createAt;
 
+    String content;
+    String nickname;
+    LocalDateTime createdAt;
 
     public ReviewCommentResponseDto(ReviewComment reviewComment) {
-        this.nickname = reviewComment.getUser().getNickname();
         this.content = reviewComment.getContent();
-        this.createAt = reviewComment.getCreatedAt();
+        this.nickname = reviewComment.getUser().getNickname();
+        this.createdAt = reviewComment.getCreatedAt();
     }
 }
