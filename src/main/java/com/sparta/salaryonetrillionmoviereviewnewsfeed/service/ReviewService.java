@@ -1,5 +1,6 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.service;
 
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewPostResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
@@ -21,14 +22,14 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final MovieRepository movieRepository;
 
-    public ReviewResponseDto postReview(Long movieId, ReviewRequestDto movieReviewRequestDto, User user) {
+    public ReviewPostResponseDto postReview(Long movieId, ReviewRequestDto movieReviewRequestDto, User user) {
 
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 영화는 존재하지 않습니다."));
         Review review = new Review(movieReviewRequestDto, movie, user);
         reviewRepository.save(review);
 
-        return new ReviewResponseDto(review);
+        return new ReviewPostResponseDto(review);
     }
 
     public List<ReviewResponseDto> getReviewList() {
@@ -40,7 +41,7 @@ public class ReviewService {
     public ReviewResponseDto getReviewDto(Long reviewId) {
 
         Review review = reviewRepository.findById(reviewId).
-                orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
+                orElseThrow(() -> new IllegalArgumentException("해당 리뷰는 존재하지 않습니다"));
 
         return new ReviewResponseDto(review);
     }

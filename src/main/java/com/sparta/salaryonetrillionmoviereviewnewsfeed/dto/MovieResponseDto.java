@@ -1,8 +1,6 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.dto;
 
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Review;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.ReviewResponseDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;

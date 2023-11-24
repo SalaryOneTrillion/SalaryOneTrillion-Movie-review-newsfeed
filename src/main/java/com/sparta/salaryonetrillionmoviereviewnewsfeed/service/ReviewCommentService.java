@@ -7,7 +7,7 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.ReviewComment;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.MovieRepository;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.ReviewCeommentRepository;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.ReviewRepository;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +44,7 @@ public class ReviewCommentService {
         ReviewComment reviewComment = reviewCeommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글은 존재하지 않습니다."));
 
-        if (!reviewComment.getUser().equals(user)) {
+        if (!reviewComment.getUser().getId().equals(user.getId())) {
             throw new IllegalArgumentException("해당 댓글을 수정할 권한이 없습니다.");
         }
 
@@ -59,7 +59,7 @@ public class ReviewCommentService {
         ReviewComment reviewComment = reviewCeommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글은 존재하지 않습니다."));
 
-        if (!reviewComment.getUser().equals(user)) {
+        if (!reviewComment.getUser().getId().equals(user.getId())) {
             throw new IllegalArgumentException("해당 댓글을 삭제할 권한이 없습니다.");
         }
 
