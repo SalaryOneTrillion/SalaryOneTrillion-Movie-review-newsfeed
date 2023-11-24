@@ -21,5 +21,6 @@ public class MovieController {
             @RequestParam String sortBy,
             @RequestParam boolean isAsc) {
         return movieService.getMovies(page-1, size, sortBy, isAsc);
+
     }
 }
