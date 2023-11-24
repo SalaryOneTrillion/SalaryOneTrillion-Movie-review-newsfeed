@@ -26,7 +26,7 @@ public class ReviewCommentController {
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         return ResponseEntity.status(200)
-                .body(reviewCommentService.postComment(requestDto, reviewId,
+                .body(reviewCommentService.postComment(requestDto, movieId, reviewId,
                         userDetails.getUser()));
     }
 
@@ -35,7 +35,7 @@ public class ReviewCommentController {
             @PathVariable Long movieId, @PathVariable String reviewId, @PathVariable Long commentId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        return ResponseEntity.status(200).body(reviewCommentService.updateComment(requestDto, commentId, userDetails.getUser()))
+        return ResponseEntity.status(200).body(reviewCommentService.updateComment(requestDto, movieId, reviewId, commentId, userDetails.getUser()))
     }
 
     @DeleteMapping("/{movieId}/reviews/{reviewId}/comments/{commentId}")
