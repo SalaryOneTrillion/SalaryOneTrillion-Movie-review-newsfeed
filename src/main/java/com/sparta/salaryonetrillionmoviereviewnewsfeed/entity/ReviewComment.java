@@ -1,5 +1,6 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.entity;
 
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewCommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,4 +42,9 @@ public class ReviewComment {
     @JoinColumn(name = "review_id")
     private Review review;
 
+    public ReviewComment(ReviewCommentRequestDto requestDto, Review review, User user) {
+        this.content = requestDto.getContent();
+        this.review = review;
+        this.user = user;
+    }
 }
