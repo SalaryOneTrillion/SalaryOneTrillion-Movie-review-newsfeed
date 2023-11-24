@@ -19,15 +19,15 @@ public class MovieAdminService {
 
     private final MovieRepository movieRepository;
 
-//    private Environment environment;
-    private final String apiSecretKey = "92b39cc8713fd2e0fba78a7d647cce4d";
+    @Autowired
+    private Environment environment;
+    private final String apiSecretKey;
 
     public MovieAdminService(MovieRepository movieRepository, Environment environment) {
         this.movieRepository = movieRepository;
-//        this.environment = environment;
-//        this.apiSecretKey = environment.getProperty("admin.key");
+        this.environment = environment;
+        this.apiSecretKey = environment.getProperty("admin.key");
     }
-
     public void updateMovies(String curPage, String itemPerPage, String openStartDt,
             String openEndDt) {
 
