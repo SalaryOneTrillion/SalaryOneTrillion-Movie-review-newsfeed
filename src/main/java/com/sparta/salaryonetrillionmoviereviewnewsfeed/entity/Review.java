@@ -1,6 +1,6 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.entity;
 
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.ReviewRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

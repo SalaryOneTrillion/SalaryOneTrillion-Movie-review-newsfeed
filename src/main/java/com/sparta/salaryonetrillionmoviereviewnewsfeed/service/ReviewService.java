@@ -1,9 +1,12 @@
-package com.sparta.salaryonetrillionmoviereviewnewsfeed.review;
+package com.sparta.salaryonetrillionmoviereviewnewsfeed.service;
 
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Review;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.MovieRepository;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

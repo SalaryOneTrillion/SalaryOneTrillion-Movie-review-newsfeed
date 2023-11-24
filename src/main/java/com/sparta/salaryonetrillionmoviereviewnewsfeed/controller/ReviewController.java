@@ -1,5 +1,8 @@
-package com.sparta.salaryonetrillionmoviereviewnewsfeed.review;
+package com.sparta.salaryonetrillionmoviereviewnewsfeed.controller;
 
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewResponseDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.service.ReviewService;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +21,21 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity<ReviewResponseDto> postReview(@PathVariable Long movieId, @RequestBody ReviewRequestDto movieReviewRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ReviewResponseDto movieReviewResponseDto = reviewService.postReview(movieId, movieReviewRequestDto, userDetails.getUser());
+
         return ResponseEntity.status(201).body(movieReviewResponseDto);
     }
 
     @GetMapping
     public ResponseEntity<List<ReviewResponseDto>> getReviewList() {
         List<ReviewResponseDto> reviewResponseDto = reviewService.getReviewList();
+
         return ResponseEntity.status(200).body(reviewResponseDto);
     }
 
     @GetMapping("/{reviewId}")
     public ResponseEntity<ReviewResponseDto> getReview(@PathVariable Long reviewId) {
         ReviewResponseDto reviewResponseDto = reviewService.getReviewDto(reviewId);
+
         return ResponseEntity.status(200).body(reviewResponseDto);
     }
 
@@ -37,12 +43,14 @@ public class ReviewController {
     public ResponseEntity<ReviewResponseDto> updateReview(Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto,
                                                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ReviewResponseDto reviewResponseDto = reviewService.updateReview(reviewId, reviewRequestDto, userDetails.getUser());
+
         return ResponseEntity.status(201).body(reviewResponseDto);
     }
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         reviewService.deleteReview(reviewId, userDetails.getUser());
+
         return ResponseEntity.noContent().build();
     }
 }
