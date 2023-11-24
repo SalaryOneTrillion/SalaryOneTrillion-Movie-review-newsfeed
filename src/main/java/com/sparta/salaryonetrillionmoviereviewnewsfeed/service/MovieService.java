@@ -1,6 +1,7 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.service;
 
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.MoviePageResponseDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.MovieResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     public Page<MoviePageResponseDto> getMovies(int page, int size, String sortBy, boolean isAsc) {
+
         Sort.Direction direction = isAsc ? Direction.ASC : Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -27,5 +29,12 @@ public class MovieService {
         moviePage = movieRepository.findAll(pageable);
 
         return moviePage.map(MoviePageResponseDto::new);
+    }
+
+    public MovieResponseDto getMovie(Long movieId) {
+
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new IllegalArgumentException("선택한 영화는 존재하지 않습니다."));
+
+        return new MovieResponseDto(movie);
     }
 }
