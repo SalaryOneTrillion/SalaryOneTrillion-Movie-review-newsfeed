@@ -7,6 +7,7 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.ReviewComment;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.MovieRepository;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.ReviewCeommentRepository;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,8 @@ public class ReviewCommentService {
 
         checkMovieAndReview(movieId, reviewId);
 
-        Review review = reviewRepository.findById(reviewId);
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰는 존재하지 않습니다."));
         ReviewComment reviewComment = new ReviewComment(requestDto, review, user);
         reviewCeommentRepository.save(reviewComment);
 
