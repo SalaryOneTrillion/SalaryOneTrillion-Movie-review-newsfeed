@@ -68,6 +68,7 @@ public class MovieAdminService {
                 movie.setGenre(movieDto.getGenreAlt());
                 movie.setId(movieDto.getMovieCd());
                 movie.setRelease_date(movieDto.getOpenDt());
+                movie.setCountry(movieDto.getRepNationNm());
                 movieRepository.save(movie);
             }
 
