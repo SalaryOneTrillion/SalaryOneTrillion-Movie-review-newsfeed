@@ -1,4 +1,4 @@
-package com.sparta.salaryonetrillionmoviereviewnewsfeed.review;
+package com.sparta.salaryonetrillionmoviereviewnewsfeed.dto;
 
 import lombok.Getter;
 import lombok.Setter;

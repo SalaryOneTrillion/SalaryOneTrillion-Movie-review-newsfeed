@@ -1,8 +1,13 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.dto;
-
+import lombok.Getter
+import lombok.Setter
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.ReviewComment;
+import java.time.LocalDateTime;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.ReviewComment;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class ReviewCommentResponseDto {
 
     String content;
