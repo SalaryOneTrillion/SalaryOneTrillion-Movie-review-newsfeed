@@ -10,7 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -53,7 +52,9 @@ public class Review {
     @OneToMany(mappedBy = "review")
     private List<ReviewComment> reviewComments;
 
-    public Review(ReviewRequestDto dto) {
+    public Review(ReviewRequestDto dto, Movie movie, User user) {
         this.content = dto.getContent();
+        this.movie = movie;
+        this.user = user;
     }
 }

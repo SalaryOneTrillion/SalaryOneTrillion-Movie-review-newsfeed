@@ -16,8 +16,8 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity<ReviewResponseDto> postReview(@RequestBody ReviewRequestDto movieReviewRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ReviewResponseDto movieReviewResponseDto = reviewService.createReview(movieReviewRequestDto, userDetails.getUser());
+    public ResponseEntity<ReviewResponseDto> postReview(@PathVariable Long movieId, @RequestBody ReviewRequestDto movieReviewRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ReviewResponseDto movieReviewResponseDto = reviewService.postReview(movieId, movieReviewRequestDto, userDetails.getUser());
         return ResponseEntity.status(201).body(movieReviewResponseDto);
     }
 
