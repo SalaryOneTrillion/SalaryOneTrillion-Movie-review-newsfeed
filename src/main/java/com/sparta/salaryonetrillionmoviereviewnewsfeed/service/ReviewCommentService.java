@@ -53,7 +53,6 @@ public class ReviewCommentService {
         return new ReviewCommentResponseDto(reviewComment);
     }
 
-    @Transactional
     public void deleteComment(Long commentId,
             User user) {
 
