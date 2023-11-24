@@ -36,10 +36,10 @@ public class Review {
     private LocalDateTime modifiedAt;
 
     @Column(nullable = false)
-    private int reviewLike;
+    private Long reviewLike;
 
     @Column(nullable = false)
-    private float movieRating;
+    private Long movieRating;
 
     @ManyToOne
     @JoinColumn(nullable = false)

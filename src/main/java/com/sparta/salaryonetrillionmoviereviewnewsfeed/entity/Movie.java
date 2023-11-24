@@ -2,6 +2,7 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,26 +21,36 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String director;
 
-    @Column(nullable = false, length = 100)
-    private String actor;
+    @Column(nullable = false)
+    private String release_date;
 
     @Column(nullable = false)
-    private LocalDateTime release_date;
+    private String genre;
 
-    @OneToMany(mappedBy = "movie")
+    @Column(nullable = false)
+    private String country;
+
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
     private List<Review> reviews;
 
-//    @OneToMany(mappedBy = "movie")
-//    private List<moivecategory> moivecategories;
-
+    public Long getReviewRatingAvg() {
+        if(reviews.isEmpty()) {
+            return 0L;
+        }
+        Long sum = 0L;
+        for(Review review : reviews) {
+            sum += review.getMovieRating();
+        }
+        sum = sum / reviews.size();
+        return sum;
+    }
 }
