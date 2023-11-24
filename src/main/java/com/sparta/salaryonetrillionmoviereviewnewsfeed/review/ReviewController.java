@@ -40,7 +40,7 @@ public class ReviewController {
         return ResponseEntity.status(201).body(reviewResponseDto);
     }
 
-    @DeleteMapping("/{reviewId")
+    @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         reviewService.deleteReview(reviewId, userDetails.getUser());
         return ResponseEntity.noContent().build();

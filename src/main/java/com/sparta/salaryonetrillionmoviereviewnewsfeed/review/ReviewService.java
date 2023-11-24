@@ -2,6 +2,7 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.review;
 
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Review;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +26,14 @@ public class ReviewService {
     }
 
     public ReviewResponseDto getReviewDto(Long reviewId) {
-        Review review = getReview(reviewId);
+        Review review = reviewRepository.findById(reviewId).
+                orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
         return new ReviewResponseDto(review);
     }
 
-    private Review getReview(Long reviewId) {
-        return reviewRepository.findById(reviewId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
-    }
-
-
+    @Transactional
     public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto, User user) {
-        Review review = getUserReview(reviewId, user);
+        Review review = getUserReviewSearchById(reviewId, user);
 
         review.setContent(reviewRequestDto.getContent());
         review.setMovieRating(reviewRequestDto.getMovieRating());
@@ -43,17 +41,19 @@ public class ReviewService {
         return new ReviewResponseDto(review);
     }
 
-    private Review getUserReview(Long reviewId, User user) {
-        Review review = getReview(reviewId);
+    private Review getUserReviewSearchById(Long reviewId, User user) {
+        Review review = reviewRepository.findById(reviewId).
+                orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
+
         if (!user.getId().equals(review.getUser().getId())) {
             throw new RejectedExecutionException("작성자만 수정할 수 있습니다!");
         }
         return review;
     }
 
+    @Transactional
     public void deleteReview(Long reviewId, User user) {
-        Review review = getUserReview(reviewId,user);
+        Review review = getUserReviewSearchById(reviewId,user);
         reviewRepository.delete(review);
     }
-
 }
