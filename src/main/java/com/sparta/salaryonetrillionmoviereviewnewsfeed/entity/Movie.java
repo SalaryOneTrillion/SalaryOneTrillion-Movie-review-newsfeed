@@ -36,6 +36,9 @@ public class Movie {
     @Column(nullable = false)
     private String genre;
 
+    @Column(nullable = false)
+    private String country;
+
     @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
     private List<Review> reviews;
 

@@ -12,12 +12,14 @@ public class MoviePageResponseDto {
     private String releaseDate;
     private String genre;
     private Long ratingAvg;
+    private String country;
 
     public MoviePageResponseDto(Movie movie) {
         this.title = movie.getTitle();
         this.director = movie.getDirector();
         this.releaseDate = movie.getRelease_date();
         this.genre = movie.getGenre();
+        this.country = movie.getCountry();
         this.ratingAvg = movie.getReviewRatingAvg();
     }
 }
