@@ -45,6 +45,9 @@ public class UserService {
         String email = requestDto.getEmail();
         String introduction = requestDto.getIntroduction();
         UserRoleEnum role = UserRoleEnum.USER;
+        if(requestDto.getRole().equals("이것은어드민키입니다")) {
+            role = UserRoleEnum.ADMIN;
+        }
 
         User user = new User(username, password, nickname, email, introduction, role);
 
