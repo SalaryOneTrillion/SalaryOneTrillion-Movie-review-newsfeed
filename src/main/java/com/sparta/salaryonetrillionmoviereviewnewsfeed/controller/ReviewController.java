@@ -5,7 +5,10 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.service.ReviewService;
+
 import java.util.List;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,7 +29,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity<ReviewPostResponseDto> postReview(@PathVariable Long movieId, @RequestBody ReviewRequestDto movieReviewRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<ReviewPostResponseDto> postReview(@PathVariable Long movieId, @Valid @RequestBody ReviewRequestDto movieReviewRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ReviewPostResponseDto movieReviewResponseDto = reviewService.postReview(movieId, movieReviewRequestDto, userDetails.getUser());
         return ResponseEntity.status(201).body(movieReviewResponseDto);
     }
@@ -44,8 +47,8 @@ public class ReviewController {
     }
 
     @PutMapping("/{reviewId}")
-    public ResponseEntity<ReviewResponseDto> updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<ReviewResponseDto> updateReview(@PathVariable Long reviewId, @Valid @RequestBody ReviewRequestDto reviewRequestDto,
+                                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ReviewResponseDto reviewResponseDto = reviewService.updateReview(reviewId, reviewRequestDto, userDetails.getUser());
         return ResponseEntity.status(201).body(reviewResponseDto);
     }

@@ -10,7 +10,10 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -32,14 +35,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> signupUser(@RequestBody SignupRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> signupUser(@Valid @RequestBody SignupRequestDto requestDto) {
 
         return ResponseEntity.status(201).body(userService.signupUser(requestDto));
     }
 
     @GetMapping("/logout")
     public ResponseEntity<?> logoutUser(@AuthenticationPrincipal UserDetailsImpl userDetails,
-            HttpServletResponse response) {
+                                        HttpServletResponse response) {
 
         userService.logoutUser(userDetails.getUser(), response);
         return ResponseEntity.status(200).body("로그아웃 완료");
@@ -47,8 +50,8 @@ public class UserController {
 
     @PutMapping("/{userId}")
     public ResponseEntity<?> editProfile(@PathVariable Long userId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @RequestBody UserProfileEditRequestDto requestDto) {
+                                         @AuthenticationPrincipal UserDetailsImpl userDetails,
+                                         @Valid @RequestBody UserProfileEditRequestDto requestDto) {
 
         userService.editProfile(userId, userDetails.getUser(), requestDto);
         return ResponseEntity.status(200).body("수정 완료");
@@ -56,7 +59,7 @@ public class UserController {
 
     @PatchMapping("/{userId}/updateemail")
     public ResponseEntity<?> updateEmail(@PathVariable Long userId, @AuthenticationPrincipal
-    UserDetailsImpl userDetails, @RequestBody UserEmailRequestDto requestDto) {
+    UserDetailsImpl userDetails, @Valid @RequestBody UserEmailRequestDto requestDto) {
 
         userService.updateEmail(userId, userDetails.getUser(), requestDto);
 
@@ -65,8 +68,8 @@ public class UserController {
 
     @PatchMapping("/{userId}/updatenickname")
     public ResponseEntity<?> updateNickname(@PathVariable Long userId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @RequestBody UserNicknameDto requestDto) {
+                                            @AuthenticationPrincipal UserDetailsImpl userDetails,
+                                            @Valid @RequestBody UserNicknameDto requestDto) {
 
         userService.updateNickname(userId, userDetails.getUser(), requestDto);
 
@@ -75,8 +78,8 @@ public class UserController {
 
     @PatchMapping("/{userId}/updatepassword")
     public ResponseEntity<?> updatePassword(@PathVariable Long userId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @RequestBody UserPasswordDto requestDto) {
+                                            @AuthenticationPrincipal UserDetailsImpl userDetails,
+                                            @Valid @RequestBody UserPasswordDto requestDto) {
 
         userService.updatePassword(userId, userDetails.getUser(), requestDto);
 

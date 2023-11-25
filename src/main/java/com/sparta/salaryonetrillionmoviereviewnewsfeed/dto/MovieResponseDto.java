@@ -1,10 +1,11 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.dto;
 
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class MovieResponseDto {
     private String genre;
     private String country;
     private Long ratingAvg;
-    private List<ReviewResponseDto> reviews;
+    private List<MovieReviewResponseDto> reviews;
 
     public MovieResponseDto(Movie movie) {
         this.title = movie.getTitle();
@@ -26,7 +27,7 @@ public class MovieResponseDto {
         this.country = movie.getCountry();
         this.ratingAvg = movie.getReviewRatingAvg();
         this.reviews = movie.getReviews().stream()
-                .map(ReviewResponseDto::new)
+                .map(MovieReviewResponseDto::new)
                 .collect(Collectors.toList());
     }
 }
