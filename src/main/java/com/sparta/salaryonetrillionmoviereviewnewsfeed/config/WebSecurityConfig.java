@@ -65,10 +65,9 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
-                        .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/admin").permitAll()
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
+                        .requestMatchers("/**").permitAll()
         );
 
         // 필터
