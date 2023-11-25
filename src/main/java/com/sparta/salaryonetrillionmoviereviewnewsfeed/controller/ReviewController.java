@@ -48,29 +48,29 @@ public class ReviewController {
     }
 
     @GetMapping("/{reviewId}")
-    public ResponseEntity<ReviewResponseDto> getReview(@PathVariable Long reviewId) {
+    public ResponseEntity<ReviewResponseDto> getReview(@PathVariable Long reviewId, @PathVariable Long movieId) {
 
-        ReviewResponseDto reviewResponseDto = reviewService.getReview(reviewId);
+        ReviewResponseDto reviewResponseDto = reviewService.getReview(reviewId, movieId);
 
         return ResponseEntity.status(200).body(reviewResponseDto);
     }
 
     @PutMapping("/{reviewId}")
     public ResponseEntity<ReviewResponseDto> updateReview(@PathVariable Long reviewId,
-            @Valid @RequestBody ReviewRequestDto reviewRequestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                                          @Valid @RequestBody ReviewRequestDto reviewRequestDto,
+                                                          @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long movieId) {
 
         ReviewResponseDto reviewResponseDto = reviewService.updateReview(reviewId, reviewRequestDto,
-                userDetails.getUser());
+                userDetails.getUser(), movieId);
 
         return ResponseEntity.status(201).body(reviewResponseDto);
     }
 
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                             @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long movieId) {
 
-        reviewService.deleteReview(reviewId, userDetails.getUser());
+        reviewService.deleteReview(reviewId, userDetails.getUser(), movieId);
 
         return ResponseEntity.noContent().build();
     }
