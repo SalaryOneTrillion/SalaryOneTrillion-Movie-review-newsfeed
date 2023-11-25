@@ -31,6 +31,14 @@ public class UserService {
 
     public UserResponseDto signupUser(SignupRequestDto requestDto) {
 
+        if (userRepository.existsByUsernameOrNicknameOrEmail(
+                requestDto.getUsername(),
+                requestDto.getNickname(),
+                requestDto.getEmail()
+        )) {
+            throw new IllegalArgumentException("사용자 아이디, 이메일 또는 닉네임이 이미 사용 중 입니다.");
+        }
+
         String username = requestDto.getUsername();
         String password = passwordEncoder.encode(requestDto.getPassword());
         String nickname = requestDto.getNickname();
