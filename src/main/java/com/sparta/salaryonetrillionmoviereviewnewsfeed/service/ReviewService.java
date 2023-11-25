@@ -24,7 +24,7 @@ public class ReviewService {
     private final MovieRepository movieRepository;
 
     public ReviewPostResponseDto postReview(Long movieId, ReviewRequestDto movieReviewRequestDto,
-            User user) {
+                                            User user) {
 
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 영화는 존재하지 않습니다."));
@@ -48,7 +48,9 @@ public class ReviewService {
                 .map(ReviewResponseDto::new).collect(Collectors.toList());
     }
 
-    public ReviewResponseDto getReview(Long reviewId) {
+    public ReviewResponseDto getReview(Long reviewId, Long movieId) {
+
+        checkMovie(movieId);
 
         Review review = reviewRepository.findById(reviewId).
                 orElseThrow(() -> new IllegalArgumentException("해당 리뷰는 존재하지 않습니다"));
@@ -57,11 +59,11 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto,
-            User user) {
+    public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto, User user, Long movieId) {
+
+        checkMovie(movieId);
 
         Review review = getUserReviewSearchById(reviewId, user);
-
         review.setContent(reviewRequestDto.getContent());
         review.setMovieRating(reviewRequestDto.getMovieRating());
 
@@ -81,9 +83,17 @@ public class ReviewService {
     }
 
     @Transactional
-    public void deleteReview(Long reviewId, User user) {
+    public void deleteReview(Long reviewId, User user, Long movieId) {
+
+        checkMovie(movieId);
 
         Review review = getUserReviewSearchById(reviewId, user);
         reviewRepository.delete(review);
+    }
+
+    public void checkMovie(Long movieId) {
+        if (!movieRepository.existsById(movieId)) {
+            throw new IllegalArgumentException("해당 영화는 존재하지 않습니다");
+        }
     }
 }
