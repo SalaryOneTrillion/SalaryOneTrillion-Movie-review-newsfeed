@@ -4,6 +4,7 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewCommentRequestD
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewCommentResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.service.ReviewCommentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,7 +25,7 @@ public class ReviewCommentController {
     private final ReviewCommentService reviewCommentService;
 
     @PostMapping("/{movieId}/reviews/{reviewId}/comments")
-    public ResponseEntity<ReviewCommentResponseDto> postComment(@RequestBody ReviewCommentRequestDto requestDto,
+    public ResponseEntity<ReviewCommentResponseDto> postComment(@Valid @RequestBody ReviewCommentRequestDto requestDto,
             @PathVariable Long movieId, @PathVariable Long reviewId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
@@ -34,7 +35,7 @@ public class ReviewCommentController {
     }
 
     @PutMapping("/{movieId}/reviews/{reviewId}/comments/{commentId}")
-    public ResponseEntity<ReviewCommentResponseDto> updateComment(@RequestBody ReviewCommentRequestDto requestDto,
+    public ResponseEntity<ReviewCommentResponseDto> updateComment(@Valid @RequestBody ReviewCommentRequestDto requestDto,
             @PathVariable Long movieId, @PathVariable Long reviewId, @PathVariable Long commentId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
