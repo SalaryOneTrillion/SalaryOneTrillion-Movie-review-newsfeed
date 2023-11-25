@@ -3,6 +3,7 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.service;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.SignupRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserEmailRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserNicknameDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserPasswordDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
@@ -51,15 +52,27 @@ public class UserService {
         user.setNickname(requestDto.getNickname());
     }
 
+    @Transactional
+    public void updatePassword(Long userId, User user, UserPasswordDto requestDto) {
 
+        if(!passwordEncoder.matches(requestDto.getOldPassword(), user.getPassword())){
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        user = checkUser(userId, user);
+        user.setPassword(passwordEncoder.encode(requestDto.getNewPassword()));
+    }
 
     private User checkUser(Long userId, User user) {
+
         if (!user.getId().equals(userId)) {
             throw new IllegalArgumentException("수정할 권한이 없습니다.");
         }
         user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("해당 유저는 존재하지 않습니다.")
         );
+
         return user;
     }
+
+
 }
