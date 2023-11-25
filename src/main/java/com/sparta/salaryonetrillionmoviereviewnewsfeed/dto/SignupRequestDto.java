@@ -23,10 +23,10 @@ public class SignupRequestDto {
     String email;
 
     //한글 포함 공백
-    @Pattern(regexp = "[^a-zA-Z0-9/]{2,10}", message = "한글, 알파벳 대,소문자, 숫자로 구성해주세요")
+    @Pattern(regexp = "[a-zA-Z0-9/가-힣]{2,10}", message = "한글, 알파벳 대,소문자, 숫자로 구성해주세요")
     String nickname;
 
-    @Size(min = 0, max = 255, message = "최대 255자까지 작성 가능합니다")
+    @Size(max = 255, message = "최대 255자까지 작성 가능합니다")
     String introduction;
 
 }
