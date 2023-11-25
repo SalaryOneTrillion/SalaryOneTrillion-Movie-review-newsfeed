@@ -40,9 +40,9 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReviewResponseDto>> getReviewList() {
+    public ResponseEntity<List<ReviewResponseDto>> getReviewList(@PathVariable Long movieId) {
 
-        List<ReviewResponseDto> reviewResponseDto = reviewService.getReviewList();
+        List<ReviewResponseDto> reviewResponseDto = reviewService.getReviewList(movieId);
 
         return ResponseEntity.status(200).body(reviewResponseDto);
     }
