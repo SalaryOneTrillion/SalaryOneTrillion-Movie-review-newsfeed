@@ -38,7 +38,7 @@ public class ReviewService {
                 .map(ReviewResponseDto::new).collect(Collectors.toList());
     }
 
-    public ReviewResponseDto getReviewDto(Long reviewId) {
+    public ReviewResponseDto getReview(Long reviewId) {
 
         Review review = reviewRepository.findById(reviewId).
                 orElseThrow(() -> new IllegalArgumentException("해당 리뷰는 존재하지 않습니다"));
