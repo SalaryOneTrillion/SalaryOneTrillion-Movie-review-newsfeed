@@ -4,6 +4,9 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @NoArgsConstructor
 public class MovieResponseDto {
@@ -14,7 +17,7 @@ public class MovieResponseDto {
     private String genre;
     private String country;
     private Long ratingAvg;
-    private int reviewCnt;
+    private List<MovieReviewResponseDto> reviews;
 
     public MovieResponseDto(Movie movie) {
         this.title = movie.getTitle();
@@ -23,6 +26,8 @@ public class MovieResponseDto {
         this.genre = movie.getGenre();
         this.country = movie.getCountry();
         this.ratingAvg = movie.getReviewRatingAvg();
-        this.reviewCnt = movie.getReviews().size();
+        this.reviews = movie.getReviews().stream()
+                .map(MovieReviewResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

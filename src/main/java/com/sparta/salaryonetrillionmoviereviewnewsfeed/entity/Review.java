@@ -59,4 +59,10 @@ public class Review {
         this.movie = movie;
         this.user = user;
     }
+
+    public Long getReviewCommentCount() {
+        Long cnt = 0L;
+        cnt = (long)reviewComments.size();
+        return cnt;
+    }
 }
