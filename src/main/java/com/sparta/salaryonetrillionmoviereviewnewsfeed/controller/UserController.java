@@ -2,6 +2,7 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.controller;
 
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.SignupRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserEmailRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserNicknameDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.service.UserService;
@@ -33,6 +34,15 @@ public class UserController {
     UserDetailsImpl userDetails, @RequestBody UserEmailRequestDto requestDto) {
 
         userService.updateEmail(userId, userDetails.getUser(), requestDto);
+
+        return ResponseEntity.status(200).body("수정 완료");
+    }
+
+    @PatchMapping("/{userId}/updatenickname")
+    public ResponseEntity<?> updateNickname(@PathVariable Long userId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody UserNicknameDto requestDto) {
+
+        userService.updateNickname(userId, userDetails.getUser(), requestDto);
 
         return ResponseEntity.status(200).body("수정 완료");
     }

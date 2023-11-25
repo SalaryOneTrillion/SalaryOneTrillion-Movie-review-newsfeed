@@ -2,6 +2,7 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.service;
 
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.SignupRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserEmailRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserNicknameDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
@@ -39,12 +40,26 @@ public class UserService {
     @Transactional
     public void updateEmail(Long userId, User user, UserEmailRequestDto requestDto) {
 
+        user = checkUser(userId, user);
+        user.setEmail(requestDto.getEmail());
+    }
+
+    @Transactional
+    public void updateNickname(Long userId, User user, UserNicknameDto requestDto) {
+
+        user = checkUser(userId, user);
+        user.setNickname(requestDto.getNickname());
+    }
+
+
+
+    private User checkUser(Long userId, User user) {
         if (!user.getId().equals(userId)) {
             throw new IllegalArgumentException("수정할 권한이 없습니다.");
         }
         user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("해당 유저는 존재하지 않습니다.")
         );
-        user.setEmail(requestDto.getEmail());
+        return user;
     }
 }
