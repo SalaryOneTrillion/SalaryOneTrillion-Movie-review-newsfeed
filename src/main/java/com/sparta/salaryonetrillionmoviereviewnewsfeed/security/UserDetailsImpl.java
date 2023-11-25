@@ -2,10 +2,13 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.security;
 
 
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Getter
@@ -19,9 +22,14 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Collection<GrantedAuthority> collection = new ArrayList<>();
-//        collection.add(() -> { return user.getRole().name()})
-        return null;
+        UserRoleEnum role = user.getRole();
+        String authority = role.getAuthority();
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(simpleGrantedAuthority);
+
+        return authorities;
     }
 
     @Override
