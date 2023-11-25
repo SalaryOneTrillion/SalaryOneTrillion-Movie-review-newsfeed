@@ -13,6 +13,8 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.UserRepository
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,6 +56,13 @@ public class UserService {
     public void updateEmail(Long userId, User user, UserEmailRequestDto requestDto) {
 
         user = checkUser(userId, user);
+
+        List<User> userList = userRepository.findAll();
+        for(User uniqueCheck : userList) {
+            if(uniqueCheck.getEmail().equals(requestDto.getEmail())) {
+                throw new IllegalArgumentException("중복된 이메일입니다.");
+            }
+        }
         user.setEmail(requestDto.getEmail());
     }
 
@@ -61,6 +70,13 @@ public class UserService {
     public void updateNickname(Long userId, User user, UserNicknameDto requestDto) {
 
         user = checkUser(userId, user);
+
+        List<User> userList = userRepository.findAll();
+        for(User uniqueCheck : userList) {
+            if(uniqueCheck.getNickname().equals(requestDto.getNickname())) {
+                throw new IllegalArgumentException("중복된 닉네임입니다.");
+            }
+        }
         user.setNickname(requestDto.getNickname());
     }
 
