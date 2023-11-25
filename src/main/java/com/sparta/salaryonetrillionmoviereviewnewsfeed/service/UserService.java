@@ -4,6 +4,7 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.SignupRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserEmailRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserNicknameDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserPasswordDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserProfileEditRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
@@ -36,6 +37,13 @@ public class UserService {
         userRepository.save(user);
 
         return new UserResponseDto(user);
+    }
+
+    @Transactional
+    public void editProfile(Long userId, User user, UserProfileEditRequestDto requestDto) {
+
+        user = checkUser(userId, user);
+        user.setIntroduction(requestDto.getIntroduction());
     }
 
     @Transactional
@@ -73,6 +81,7 @@ public class UserService {
 
         return user;
     }
+
 
 
 }
