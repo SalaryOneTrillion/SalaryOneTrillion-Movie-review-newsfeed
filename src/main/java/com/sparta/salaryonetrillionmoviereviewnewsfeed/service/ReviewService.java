@@ -19,10 +19,12 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
+
     private final ReviewRepository reviewRepository;
     private final MovieRepository movieRepository;
 
-    public ReviewPostResponseDto postReview(Long movieId, ReviewRequestDto movieReviewRequestDto, User user) {
+    public ReviewPostResponseDto postReview(Long movieId, ReviewRequestDto movieReviewRequestDto,
+            User user) {
 
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 영화는 존재하지 않습니다."));
@@ -37,9 +39,12 @@ public class ReviewService {
         return new ReviewPostResponseDto(review);
     }
 
-    public List<ReviewResponseDto> getReviewList() {
+    public List<ReviewResponseDto> getReviewList(Long movieId) {
 
-        return reviewRepository.findAllByOrderByReviewLikeDescCreatedAtDesc().stream()
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 영화는 존재하지 않습니다"));
+
+        return reviewRepository.findAllByMovieOrderByReviewLikeDescCreatedAtDesc(movie).stream()
                 .map(ReviewResponseDto::new).collect(Collectors.toList());
     }
 
@@ -52,7 +57,8 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto, User user) {
+    public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto,
+            User user) {
 
         Review review = getUserReviewSearchById(reviewId, user);
 
