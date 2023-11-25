@@ -26,6 +26,11 @@ public class ReviewService {
 
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 영화는 존재하지 않습니다."));
+
+        if (reviewRepository.existsByMovieAndUser(movie, user)) {
+            throw new IllegalArgumentException("이미 리뷰를 작성 하셨습니다");
+        }
+
         Review review = new Review(movieReviewRequestDto, movie, user);
         reviewRepository.save(review);
 
