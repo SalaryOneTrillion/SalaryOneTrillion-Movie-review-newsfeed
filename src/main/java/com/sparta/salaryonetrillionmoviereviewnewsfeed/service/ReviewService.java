@@ -34,7 +34,7 @@ public class ReviewService {
 
     public List<ReviewResponseDto> getReviewList() {
 
-        return reviewRepository.findAllByOrderByCreatedAtDesc().stream()
+        return reviewRepository.findAllByOrderByReviewLikeDescCreatedAtDesc().stream()
                 .map(ReviewResponseDto::new).collect(Collectors.toList());
     }
 
