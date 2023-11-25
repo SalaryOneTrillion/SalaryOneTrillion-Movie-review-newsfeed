@@ -10,7 +10,11 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.jwt.JwtUtil;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,7 +67,7 @@ public class UserService {
     @Transactional
     public void updatePassword(Long userId, User user, UserPasswordDto requestDto) {
 
-        if(!passwordEncoder.matches(requestDto.getOldPassword(), user.getPassword())){
+        if (!passwordEncoder.matches(requestDto.getOldPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         user = checkUser(userId, user);
@@ -83,5 +87,12 @@ public class UserService {
     }
 
 
+    public void logoutUser(User user, HttpServletResponse response) {
+        String username = user.getUsername();
+        UserRoleEnum userRole = user.getRole();
 
+        String token = jwtUtil.createLogoutToken(username, userRole);
+
+        jwtUtil.addJwtToCookie(token, response);
+    }
 }

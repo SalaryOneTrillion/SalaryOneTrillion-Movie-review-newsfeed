@@ -8,9 +8,14 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserProfileEditReques
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.UserResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +35,14 @@ public class UserController {
     public ResponseEntity<UserResponseDto> signupUser(@RequestBody SignupRequestDto requestDto) {
 
         return ResponseEntity.status(201).body(userService.signupUser(requestDto));
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logoutUser(@AuthenticationPrincipal UserDetailsImpl userDetails,
+            HttpServletResponse response) {
+
+        userService.logoutUser(userDetails.getUser(), response);
+        return ResponseEntity.status(200).body("로그아웃 완료");
     }
 
     @PutMapping("/{userId}")
