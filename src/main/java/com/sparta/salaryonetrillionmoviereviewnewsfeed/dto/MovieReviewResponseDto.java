@@ -18,7 +18,7 @@ public class MovieReviewResponseDto {
     private Long reviewCommentCnt;
 
     public MovieReviewResponseDto(Review review) {
-        this.nickname = review.getUser().getUsername();
+        this.nickname = review.getUser().getNickname();
         this.content = review.getContent();
         this.createdAt = review.getCreatedAt();
         this.reviewLike = review.getReviewLike();
