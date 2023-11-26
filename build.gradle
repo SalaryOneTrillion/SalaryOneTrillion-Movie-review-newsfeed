@@ -23,6 +23,12 @@ repositories {
 
 dependencies {
 
+	// Kobis Rest
+	implementation files('libs/kobis-opcl-rest-v1.0.jar')
+
+	// JSON
+	implementation 'org.json:json:20230227'
+
 	// JWT
 	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
@@ -30,6 +36,9 @@ dependencies {
 
 	// Valid
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Json-simple
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
 	// JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
