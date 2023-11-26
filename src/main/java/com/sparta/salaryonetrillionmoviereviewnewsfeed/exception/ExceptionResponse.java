@@ -7,7 +7,7 @@ public class ExceptionResponse {
     private final String message;
 
     public ExceptionResponse(ExceptionCode exceptionCode) {
-        this.status = exceptionCode.getStatus();
+        this.status = exceptionCode.getHttpStatus();
         this.message = exceptionCode.getMessage();
     }
 
