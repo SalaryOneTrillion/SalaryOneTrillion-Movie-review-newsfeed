@@ -6,6 +6,8 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Review;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.CustomException;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.ExceptionCode;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.MovieRepository;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
@@ -13,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,13 +25,13 @@ public class ReviewService {
     private final MovieRepository movieRepository;
 
     public ReviewPostResponseDto postReview(Long movieId, ReviewRequestDto movieReviewRequestDto,
-                                            User user) {
+            User user) {
 
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 영화는 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_MOVIE));
 
         if (reviewRepository.existsByMovieAndUser(movie, user)) {
-            throw new IllegalArgumentException("이미 리뷰를 작성 하셨습니다");
+            throw new CustomException(ExceptionCode.BAD_REQUEST_ALREADY_EDITED_REVIEW);
         }
 
         Review review = new Review(movieReviewRequestDto, movie, user);
@@ -42,7 +43,7 @@ public class ReviewService {
     public List<ReviewResponseDto> getReviewList(Long movieId) {
 
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 영화는 존재하지 않습니다"));
+                .orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_MOVIE));
 
         return reviewRepository.findAllByMovieOrderByReviewLikeDescCreatedAtDesc(movie).stream()
                 .map(ReviewResponseDto::new).collect(Collectors.toList());
@@ -53,33 +54,23 @@ public class ReviewService {
         checkMovie(movieId);
 
         Review review = reviewRepository.findById(reviewId).
-                orElseThrow(() -> new IllegalArgumentException("해당 리뷰는 존재하지 않습니다"));
+                orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_REVIEW));
 
         return new ReviewResponseDto(review);
     }
 
     @Transactional
-    public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto, User user, Long movieId) {
+    public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto,
+            User user, Long movieId) {
 
         checkMovie(movieId);
 
-        Review review = getUserReviewSearchById(reviewId, user);
+        Review review = getUserReviewSearchById(reviewId);
+        forbiddenReviewEditCheck(user, review);
         review.setContent(reviewRequestDto.getContent());
         review.setMovieRating(reviewRequestDto.getMovieRating());
 
         return new ReviewResponseDto(review);
-    }
-
-    private Review getUserReviewSearchById(Long reviewId, User user) {
-
-        Review review = reviewRepository.findById(reviewId).
-                orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다"));
-
-        if (!user.getId().equals(review.getUser().getId())) {
-            throw new RejectedExecutionException("작성자만 수정할 수 있습니다!");
-        }
-
-        return review;
     }
 
     @Transactional
@@ -87,13 +78,34 @@ public class ReviewService {
 
         checkMovie(movieId);
 
-        Review review = getUserReviewSearchById(reviewId, user);
+        Review review = getUserReviewSearchById(reviewId);
+        forbiddenReviewDeleteCheck(user, review);
         reviewRepository.delete(review);
     }
 
-    public void checkMovie(Long movieId) {
+    private Review getUserReviewSearchById(Long reviewId) {
+
+        Review review = reviewRepository.findById(reviewId).
+                orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_REVIEW));
+
+        return review;
+    }
+
+    private void forbiddenReviewEditCheck(User user, Review review) {
+        if (!user.getId().equals(review.getUser().getId())) {
+            throw new CustomException(ExceptionCode.FORBIDDEN_EDIT_ONLY_EDITED);
+        }
+    }
+
+    private void forbiddenReviewDeleteCheck(User user, Review review) {
+        if (!user.getId().equals(review.getUser().getId())) {
+            throw new CustomException(ExceptionCode.FORBIDDEN_DELETE_ONLY_EDITED);
+        }
+    }
+
+    private void checkMovie(Long movieId) {
         if (!movieRepository.existsById(movieId)) {
-            throw new IllegalArgumentException("해당 영화는 존재하지 않습니다");
+            throw new CustomException(ExceptionCode.NOT_FOUND_MOVIE);
         }
     }
 }
