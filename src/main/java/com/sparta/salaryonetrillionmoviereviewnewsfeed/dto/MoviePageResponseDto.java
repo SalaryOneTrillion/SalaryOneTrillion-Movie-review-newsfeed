@@ -11,7 +11,7 @@ public class MoviePageResponseDto {
     private String director;
     private String releaseDate;
     private String genre;
-    private Long ratingAvg;
+    private String ratingAvg;
     private String country;
 
     public MoviePageResponseDto(Movie movie) {

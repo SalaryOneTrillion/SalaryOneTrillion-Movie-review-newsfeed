@@ -16,7 +16,7 @@ public class MovieResponseDto {
     private String releaseDate;
     private String genre;
     private String country;
-    private Long ratingAvg;
+    private String ratingAvg;
     private List<MovieReviewResponseDto> reviews;
 
     public MovieResponseDto(Movie movie) {

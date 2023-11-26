@@ -42,15 +42,15 @@ public class Movie {
     @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
     private List<Review> reviews;
 
-    public Long getReviewRatingAvg() {
+    public String getReviewRatingAvg() {
         if(reviews.isEmpty()) {
-            return 0L;
+            return "0";
         }
-        Long sum = 0L;
+        float sum = 0L;
         for(Review review : reviews) {
             sum += review.getMovieRating();
         }
         sum = sum / reviews.size();
-        return sum;
+        return String.format("%.2f", sum);
     }
 }
