@@ -3,6 +3,8 @@ package com.sparta.salaryonetrillionmoviereviewnewsfeed.service;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.MoviePageResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.MovieResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.Movie;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.CustomException;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.ExceptionCode;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,7 +35,8 @@ public class MovieService {
 
     public MovieResponseDto getMovie(Long movieId) {
 
-        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new IllegalArgumentException("선택한 영화는 존재하지 않습니다."));
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new CustomException(
+                ExceptionCode.NOT_FOUND_MOVIE));
 
         return new MovieResponseDto(movie);
     }

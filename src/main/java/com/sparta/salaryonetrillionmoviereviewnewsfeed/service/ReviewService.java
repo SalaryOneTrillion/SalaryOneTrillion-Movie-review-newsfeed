@@ -24,7 +24,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final MovieRepository movieRepository;
 
-    public ReviewPostResponseDto postReview(Long movieId, ReviewRequestDto movieReviewRequestDto,
+    public void postReview(Long movieId, ReviewRequestDto movieReviewRequestDto,
             User user) {
 
         Movie movie = movieRepository.findById(movieId)
@@ -36,8 +36,6 @@ public class ReviewService {
 
         Review review = new Review(movieReviewRequestDto, movie, user);
         reviewRepository.save(review);
-
-        return new ReviewPostResponseDto(review);
     }
 
     public List<ReviewResponseDto> getReviewList(Long movieId) {
@@ -60,7 +58,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewResponseDto updateReview(Long reviewId, ReviewRequestDto reviewRequestDto,
+    public void updateReview(Long reviewId, ReviewRequestDto reviewRequestDto,
             User user, Long movieId) {
 
         checkMovie(movieId);
@@ -69,8 +67,6 @@ public class ReviewService {
         forbiddenReviewEditCheck(user, review);
         review.setContent(reviewRequestDto.getContent());
         review.setMovieRating(reviewRequestDto.getMovieRating());
-
-        return new ReviewResponseDto(review);
     }
 
     @Transactional
