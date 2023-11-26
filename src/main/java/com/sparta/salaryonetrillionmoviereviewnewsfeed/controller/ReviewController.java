@@ -1,25 +1,16 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.controller;
 
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewPostResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.ReviewResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.service.ReviewService;
-
-import java.util.List;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,14 +20,13 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping
-    public ResponseEntity<ReviewPostResponseDto> postReview(@PathVariable Long movieId,
-            @Valid @RequestBody ReviewRequestDto movieReviewRequestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<String> postReview(@PathVariable Long movieId,
+                                             @Valid @RequestBody ReviewRequestDto movieReviewRequestDto,
+                                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        ReviewPostResponseDto movieReviewResponseDto = reviewService.postReview(movieId,
-                movieReviewRequestDto, userDetails.getUser());
+        reviewService.postReview(movieId, movieReviewRequestDto, userDetails.getUser());
 
-        return ResponseEntity.status(201).body(movieReviewResponseDto);
+        return ResponseEntity.status(201).body("리뷰가 등록되었습니다.");
     }
 
     @GetMapping
@@ -56,22 +46,21 @@ public class ReviewController {
     }
 
     @PutMapping("/{reviewId}")
-    public ResponseEntity<ReviewResponseDto> updateReview(@PathVariable Long reviewId,
-                                                          @Valid @RequestBody ReviewRequestDto reviewRequestDto,
-                                                          @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long movieId) {
+    public ResponseEntity<String> updateReview(@PathVariable Long reviewId,
+                                               @Valid @RequestBody ReviewRequestDto reviewRequestDto,
+                                               @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long movieId) {
 
-        ReviewResponseDto reviewResponseDto = reviewService.updateReview(reviewId, reviewRequestDto,
-                userDetails.getUser(), movieId);
+        reviewService.updateReview(reviewId, reviewRequestDto, userDetails.getUser(), movieId);
 
-        return ResponseEntity.status(201).body(reviewResponseDto);
+        return ResponseEntity.status(201).body("리뷰가 수정되었습니다.");
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId,
-                                             @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long movieId) {
+    public ResponseEntity<String> deleteReview(@PathVariable Long reviewId,
+                                               @AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long movieId) {
 
         reviewService.deleteReview(reviewId, userDetails.getUser(), movieId);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(200).body("리뷰 삭제에 성공하였습니다.");
     }
 }
