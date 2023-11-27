@@ -1,7 +1,7 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.security;
 
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.repository.UserRepository;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.User;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

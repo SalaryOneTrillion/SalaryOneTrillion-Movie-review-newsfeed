@@ -1,8 +1,8 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.dto.LoginRequestDto;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.LoginRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.UserRoleEnum;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.security.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
