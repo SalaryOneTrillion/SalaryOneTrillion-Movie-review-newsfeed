@@ -4,7 +4,7 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.SignupRequestDto
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserEmailRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserNicknameDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserPasswordDto;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserProfileEditRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserProfileUpdateRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.UserRoleEnum;
@@ -52,7 +52,7 @@ public class UserService {
     }
 
     @Transactional
-    public void editProfile(Long userId, User user, UserProfileEditRequestDto requestDto) {
+    public void updateProfile(Long userId, User user, UserProfileUpdateRequestDto requestDto) {
 
         user = checkUser(userId, user);
         user.setIntroduction(requestDto.getIntroduction());
