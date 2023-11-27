@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 public class UserProfileEditRequestDto {
 
-    @Size(max =  255)
+    @Size(max = 255)
     String introduction;
-
 }

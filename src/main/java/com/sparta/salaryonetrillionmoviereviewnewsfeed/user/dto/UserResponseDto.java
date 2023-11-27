@@ -10,6 +10,7 @@ public class UserResponseDto {
     String nickname;
     String email;
     String introduction;
+
     public UserResponseDto(User user) {
         this.username = user.getUsername();
         this.nickname = user.getNickname();
