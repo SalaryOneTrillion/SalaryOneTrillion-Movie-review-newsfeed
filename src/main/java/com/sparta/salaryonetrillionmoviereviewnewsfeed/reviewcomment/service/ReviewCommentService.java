@@ -1,5 +1,7 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.reviewcomment.service;
 
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.CustomException;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.ExceptionCode;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.reviewcomment.dto.ReviewCommentResponseDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.reviewcomment.dto.ReviewCommentRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.entity.Review;
@@ -27,7 +29,7 @@ public class ReviewCommentService {
         checkMovieAndReview(movieId, reviewId);
 
         Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰는 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_REVIEW));
         ReviewComment reviewComment = new ReviewComment(requestDto, review, user);
         reviewCommentRepository.save(reviewComment);
 
@@ -42,10 +44,10 @@ public class ReviewCommentService {
         checkMovieAndReview(movieId, reviewId);
 
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 댓글은 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_REVIEW_COMMENT));
 
         if (!reviewComment.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("해당 댓글을 수정할 권한이 없습니다.");
+            throw new CustomException(ExceptionCode.FORBIDDEN_UPDATE_ONLY_WRITER);
         }
 
         reviewComment.setContent(requestDto.getContent());
@@ -56,10 +58,10 @@ public class ReviewCommentService {
     public void deleteComment(Long commentId, User user) {
 
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 댓글은 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_REVIEW_COMMENT));
 
         if (!reviewComment.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("해당 댓글을 삭제할 권한이 없습니다.");
+            throw new CustomException(ExceptionCode.FORBIDDEN_DELETE_ONLY_WRITER);
         }
 
         reviewCommentRepository.delete(reviewComment);
@@ -67,10 +69,10 @@ public class ReviewCommentService {
 
     private void checkMovieAndReview(Long movieId, Long reviewId) {
         if (!movieRepository.findById(movieId).isPresent()) {
-            throw new IllegalArgumentException("해당 영화는 존재하지 않습니다.");
+            throw new CustomException(ExceptionCode.NOT_FOUND_MOVIE);
         }
         if (!reviewRepository.findById(reviewId).isPresent()) {
-            throw new IllegalArgumentException("해당 리뷰는 존재하지 않습니다.");
+            throw new CustomException(ExceptionCode.NOT_FOUND_REVIEW);
         }
     }
 }

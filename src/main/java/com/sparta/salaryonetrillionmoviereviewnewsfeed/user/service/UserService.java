@@ -1,5 +1,7 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.user.service;
 
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.CustomException;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.ExceptionCode;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.SignupRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserEmailRequestDto;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.dto.UserNicknameDto;
@@ -31,7 +33,7 @@ public class UserService {
                 requestDto.getNickname(),
                 requestDto.getEmail()
         )) {
-            throw new IllegalArgumentException("사용자 아이디, 이메일 또는 닉네임이 이미 사용 중 입니다.");
+            throw new CustomException(ExceptionCode.CONFLICT_ID_EMAIL_NICKNAME_IN_USE);
         }
 
         String username = requestDto.getUsername();
@@ -63,7 +65,7 @@ public class UserService {
 
         user = checkUser(userId, user);
         if (userRepository.existsByEmail(requestDto.getEmail())) {
-            throw new IllegalArgumentException("중복된 이메일입니다.");
+            throw new CustomException(ExceptionCode.CONFLICT_EMAIL_IN_USE);
         }
         user.setEmail(requestDto.getEmail());
     }
@@ -73,7 +75,7 @@ public class UserService {
 
         user = checkUser(userId, user);
         if (userRepository.existsByNickname(requestDto.getNickname())) {
-            throw new IllegalArgumentException("중복된 닉네임입니다");
+            throw new CustomException(ExceptionCode.CONFLICT_NICK_IN_USE);
         }
         user.setNickname(requestDto.getNickname());
     }
@@ -82,24 +84,11 @@ public class UserService {
     public void updatePassword(Long userId, User user, UserPasswordDto requestDto) {
 
         if (!passwordEncoder.matches(requestDto.getOldPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new CustomException(ExceptionCode.BAD_REQUEST_NOT_MATCH_PASSWORD);
         }
         user = checkUser(userId, user);
         user.setPassword(passwordEncoder.encode(requestDto.getNewPassword()));
     }
-
-    private User checkUser(Long userId, User user) {
-
-        if (!user.getId().equals(userId)) {
-            throw new IllegalArgumentException("수정할 권한이 없습니다.");
-        }
-        user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 유저는 존재하지 않습니다.")
-        );
-
-        return user;
-    }
-
 
     public void logoutUser(User user, HttpServletResponse response) {
 
@@ -109,5 +98,17 @@ public class UserService {
         String token = jwtUtil.createLogoutToken(username, userRole);
 
         jwtUtil.addJwtToCookie(token, response);
+    }
+
+    private User checkUser(Long userId, User user) {
+
+        if (!user.getId().equals(userId)) {
+            throw new CustomException(ExceptionCode.FORBIDDEN_YOUR_NOT_COME_IN);
+        }
+        user = userRepository.findById(userId).orElseThrow(
+                () -> new CustomException(ExceptionCode.NOT_FOUND_USER)
+        );
+
+        return user;
     }
 }
