@@ -18,8 +18,7 @@ https://documenter.getpostman.com/view/30857800/2s9YeEareR
 - 저희 연봉 1조는 영화 리뷰 뉴스피드를 제작하였습니다. 
 - 영화진흥위원회에서 오픈 API를 파싱해서 Movie Entity와 매핑을 하여 실제 영화 정보들을 데이터베이스에 저장하도록 구현하였습니다.
 - 필수 구현 기능인 사용자 인증 기능, 프로필 관리, 게시물 CRUD, 뉴스피드 기능과 추가 구현 기능인 댓글 CRUD 기능을 구현하였습니다.
-- enum클래스와 @ExceptionHandler, @RestControllerAdvice 어노테이션을 사용하여 enum안에 각 클래스에서 발생할 수 있는 오류들의 값들이 담겨 있기 때문에 하나의 핸들러로 모든 비지니스 예외처리가 가능합니다.
-- 
+- enum클래스와 @ExceptionHandler, @RestControllerAdvice 어노테이션을 사용하여 enum안에 각 클래스에서 발생할 수 있는 오류들의 값들이 담겨 있기 때문에 하나의 핸들러와 하나의 예외 클래스로 모든 비지니스 예외처리가 가능합니다.
 
 ---
 # 💵 필수 구현 기능
