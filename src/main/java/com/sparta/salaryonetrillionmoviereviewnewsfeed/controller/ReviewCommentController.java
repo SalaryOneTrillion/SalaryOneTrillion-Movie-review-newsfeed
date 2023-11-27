@@ -23,7 +23,7 @@ public class ReviewCommentController {
 
         reviewCommentService.postComment(requestDto, movieId, reviewId, userDetails.getUser());
 
-        return ResponseEntity.status(200).body("댓글이 등록되었습니다.");
+        return ResponseEntity.status(201).body("댓글이 등록되었습니다.");
     }
 
     @PutMapping("/{movieId}/reviews/{reviewId}/comments/{commentId}")
