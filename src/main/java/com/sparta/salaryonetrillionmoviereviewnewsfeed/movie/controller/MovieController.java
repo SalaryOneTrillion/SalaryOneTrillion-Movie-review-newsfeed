@@ -26,7 +26,8 @@ public class MovieController {
             @RequestParam String sortBy,
             @RequestParam boolean isAsc) {
 
-        return ResponseEntity.status(200).body(movieService.getMovies(page-1, size, sortBy, isAsc));
+        return ResponseEntity.status(200)
+                .body(movieService.getMovies(page - 1, size, sortBy, isAsc));
     }
 
     @GetMapping("/{movieId}")

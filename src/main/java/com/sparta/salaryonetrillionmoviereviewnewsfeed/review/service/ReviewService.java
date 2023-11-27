@@ -86,18 +86,21 @@ public class ReviewService {
     }
 
     private void forbiddenReviewEditCheck(User user, Review review) {
+
         if (!user.getId().equals(review.getUser().getId())) {
             throw new CustomException(ExceptionCode.FORBIDDEN_EDIT_ONLY_EDITED);
         }
     }
 
     private void forbiddenReviewDeleteCheck(User user, Review review) {
+
         if (!user.getId().equals(review.getUser().getId())) {
             throw new CustomException(ExceptionCode.FORBIDDEN_DELETE_ONLY_EDITED);
         }
     }
 
     private void checkMovie(Long movieId) {
+
         if (!movieRepository.existsById(movieId)) {
             throw new CustomException(ExceptionCode.NOT_FOUND_MOVIE);
         }

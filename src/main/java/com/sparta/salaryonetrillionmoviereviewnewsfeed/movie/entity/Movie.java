@@ -41,6 +41,7 @@ public class Movie {
     private List<Review> reviews;
 
     public String getReviewRatingAvg() {
+
         if(reviews.isEmpty()) {
             return "0";
         }
@@ -49,6 +50,7 @@ public class Movie {
             sum += review.getMovieRating();
         }
         sum = sum / reviews.size();
+
         return String.format("%.2f", sum);
     }
 }

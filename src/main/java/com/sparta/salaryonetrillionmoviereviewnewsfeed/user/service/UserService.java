@@ -102,6 +102,7 @@ public class UserService {
 
 
     public void logoutUser(User user, HttpServletResponse response) {
+
         String username = user.getUsername();
         UserRoleEnum userRole = user.getRole();
 
