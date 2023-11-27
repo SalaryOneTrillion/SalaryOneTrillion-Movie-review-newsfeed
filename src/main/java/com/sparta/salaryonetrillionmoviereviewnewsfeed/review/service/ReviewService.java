@@ -1,21 +1,19 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.review.service;
 
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.dto.ReviewPostResponseDto;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.dto.ReviewRequestDto;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.dto.ReviewResponseDto;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.movie.entity.Movie;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.entity.Review;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.CustomException;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.exception.ExceptionCode;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.movie.entity.Movie;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.movie.repository.MovieRepository;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.dto.ReviewRequestDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.dto.ReviewResponseDto;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.entity.Review;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.repository.ReviewRepository;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.User;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
