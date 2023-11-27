@@ -1,8 +1,8 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.security;
 
 
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.User;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.User;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.UserRoleEnum;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

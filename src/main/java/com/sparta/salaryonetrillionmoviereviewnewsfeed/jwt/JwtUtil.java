@@ -1,6 +1,6 @@
 package com.sparta.salaryonetrillionmoviereviewnewsfeed.jwt;
 
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.entity.UserRoleEnum;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.UserRoleEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
