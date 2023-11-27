@@ -30,6 +30,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res,
             FilterChain filterChain) throws ServletException, IOException {
+
         log.info("JWT 검증");
         String tokenValue = jwtUtil.getTokenFromRequest(req);
 
@@ -56,6 +57,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     public void setAuthentication(String username) {
+
         log.info("Authentication 콘텍스트에 담기");
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         Authentication authentication = createAuthentication(username);
@@ -65,8 +67,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private Authentication createAuthentication(String username) {
+
         log.info("Authentication 만들기");
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
         return new UsernamePasswordAuthenticationToken(userDetails, null,
                 userDetails.getAuthorities());
     }

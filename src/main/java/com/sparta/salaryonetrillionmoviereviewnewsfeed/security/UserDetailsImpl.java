@@ -22,6 +22,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         UserRoleEnum role = user.getRole();
         String authority = role.getAuthority();
 
@@ -34,35 +35,41 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
+
         return user.getUsername();
     }
 
     @Override
     public String getPassword() {
+
         return user.getPassword();
     }
 
     //계정이 만료되었는지(true : 만료 x)
     @Override
     public boolean isAccountNonExpired() {
+
         return true;
     }
 
     //계정이 잠겼는지
     @Override
     public boolean isAccountNonLocked() {
+
         return true;
     }
 
     //비밀번호가 만료되었는지
     @Override
     public boolean isCredentialsNonExpired() {
+
         return true;
     }
 
     // 계정이 사용가능한지
     @Override
     public boolean isEnabled() {
+
         return true;
     }
 

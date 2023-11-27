@@ -64,8 +64,10 @@ public class Review {
     }
 
     public Long getReviewCommentCount() {
+
         Long cnt = 0L;
         cnt = (long)reviewComments.size();
+
         return cnt;
     }
 }

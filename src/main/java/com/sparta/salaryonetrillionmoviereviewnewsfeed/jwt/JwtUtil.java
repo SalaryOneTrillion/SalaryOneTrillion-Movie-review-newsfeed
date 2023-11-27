@@ -55,6 +55,7 @@ public class JwtUtil {
 
     // 토큰 생성
     public String createToken(String username, UserRoleEnum role) {
+
         Date date = new Date();
 
         return BEARER_PREFIX +
@@ -68,6 +69,7 @@ public class JwtUtil {
     }
 
     public String createLogoutToken(String username, UserRoleEnum role) {
+
         Date date = new Date();
 
         return BEARER_PREFIX +
@@ -82,6 +84,7 @@ public class JwtUtil {
 
     // JWT Cookie 에 저장
     public void addJwtToCookie(String token, HttpServletResponse res) {
+
         try {
             token = URLEncoder.encode(token, "utf-8")
                     .replaceAll("\\+", "%20"); // Cookie Value 에는 공백이 불가능해서 encoding 진행
@@ -98,15 +101,18 @@ public class JwtUtil {
 
     // JWT 토큰 substring
     public String substringToken(String tokenValue) {
+
         if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
             return tokenValue.substring(7);
         }
         logger.error("Not Found Token");
+
         throw new NullPointerException("Not Found Token");
     }
 
     // 토큰 검증
     public boolean validateToken(String token) {
+
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
@@ -119,6 +125,7 @@ public class JwtUtil {
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
         }
+
         return false;
     }
 

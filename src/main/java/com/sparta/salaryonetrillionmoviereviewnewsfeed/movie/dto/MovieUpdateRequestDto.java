@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MovieUpdateRequestDto {
 
     String curPage;
-
     String itemPerPage;
-
     String openStartDt;
-
     String openEndDt;
 
 }

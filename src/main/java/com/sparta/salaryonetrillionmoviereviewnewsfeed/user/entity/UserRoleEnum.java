@@ -14,6 +14,7 @@ public enum UserRoleEnum {
     }
 
     public String getAuthority() {
+
         return this.authority;
     }
 

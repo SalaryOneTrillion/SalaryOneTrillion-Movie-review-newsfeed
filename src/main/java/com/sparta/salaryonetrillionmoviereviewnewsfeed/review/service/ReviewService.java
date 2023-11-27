@@ -29,7 +29,7 @@ public class ReviewService {
                 .orElseThrow(() -> new CustomException(ExceptionCode.NOT_FOUND_MOVIE));
 
         if (reviewRepository.existsByMovieAndUser(movie, user)) {
-            throw new CustomException(ExceptionCode.BAD_REQUEST_ALREADY_EDITED_REVIEW);
+            throw new CustomException(ExceptionCode.BAD_REQUEST_ALREADY_WROTE_REVIEW);
         }
 
         Review review = new Review(movieReviewRequestDto, movie, user);
@@ -62,7 +62,7 @@ public class ReviewService {
         checkMovie(movieId);
 
         Review review = getUserReviewSearchById(reviewId);
-        forbiddenReviewEditCheck(user, review);
+        forbiddenReviewUpdateCheck(user, review);
         review.setContent(reviewRequestDto.getContent());
         review.setMovieRating(reviewRequestDto.getMovieRating());
     }
@@ -85,19 +85,22 @@ public class ReviewService {
         return review;
     }
 
-    private void forbiddenReviewEditCheck(User user, Review review) {
+    private void forbiddenReviewUpdateCheck(User user, Review review) {
+
         if (!user.getId().equals(review.getUser().getId())) {
-            throw new CustomException(ExceptionCode.FORBIDDEN_EDIT_ONLY_EDITED);
+            throw new CustomException(ExceptionCode.FORBIDDEN_UPDATE_ONLY_WRITER);
         }
     }
 
     private void forbiddenReviewDeleteCheck(User user, Review review) {
+
         if (!user.getId().equals(review.getUser().getId())) {
-            throw new CustomException(ExceptionCode.FORBIDDEN_DELETE_ONLY_EDITED);
+            throw new CustomException(ExceptionCode.FORBIDDEN_DELETE_ONLY_WRITER);
         }
     }
 
     private void checkMovie(Long movieId) {
+
         if (!movieRepository.existsById(movieId)) {
             throw new CustomException(ExceptionCode.NOT_FOUND_MOVIE);
         }

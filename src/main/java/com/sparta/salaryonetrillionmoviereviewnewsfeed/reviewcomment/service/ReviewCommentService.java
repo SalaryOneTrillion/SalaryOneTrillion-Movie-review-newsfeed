@@ -6,7 +6,7 @@ import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.entity.Review;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.reviewcomment.entity.ReviewComment;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.user.entity.User;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.movie.repository.MovieRepository;
-import com.sparta.salaryonetrillionmoviereviewnewsfeed.reviewcomment.repository.ReviewCeommentRepository;
+import com.sparta.salaryonetrillionmoviereviewnewsfeed.reviewcomment.repository.ReviewCommentRepository;
 import com.sparta.salaryonetrillionmoviereviewnewsfeed.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,32 +16,32 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ReviewCommentService {
 
-    private final ReviewCeommentRepository reviewCeommentRepository;
+    private final ReviewCommentRepository reviewCommentRepository;
     private final ReviewRepository reviewRepository;
     private final MovieRepository movieRepository;
 
     public ReviewCommentResponseDto postComment(ReviewCommentRequestDto requestDto, Long movieId,
-                                                Long reviewId,
-                                                User user) {
+            Long reviewId,
+            User user) {
 
         checkMovieAndReview(movieId, reviewId);
 
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 리뷰는 존재하지 않습니다."));
         ReviewComment reviewComment = new ReviewComment(requestDto, review, user);
-        reviewCeommentRepository.save(reviewComment);
+        reviewCommentRepository.save(reviewComment);
 
         return new ReviewCommentResponseDto(reviewComment);
     }
 
     @Transactional
     public ReviewCommentResponseDto updateComment(ReviewCommentRequestDto requestDto, Long movieId,
-                                                  Long reviewId, Long commentId,
-                                                  User user) {
+            Long reviewId, Long commentId,
+            User user) {
 
         checkMovieAndReview(movieId, reviewId);
 
-        ReviewComment reviewComment = reviewCeommentRepository.findById(commentId)
+        ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글은 존재하지 않습니다."));
 
         if (!reviewComment.getUser().getId().equals(user.getId())) {
@@ -55,14 +55,14 @@ public class ReviewCommentService {
 
     public void deleteComment(Long commentId, User user) {
 
-        ReviewComment reviewComment = reviewCeommentRepository.findById(commentId)
+        ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글은 존재하지 않습니다."));
 
         if (!reviewComment.getUser().getId().equals(user.getId())) {
             throw new IllegalArgumentException("해당 댓글을 삭제할 권한이 없습니다.");
         }
 
-        reviewCeommentRepository.delete(reviewComment);
+        reviewCommentRepository.delete(reviewComment);
     }
 
     private void checkMovieAndReview(Long movieId, Long reviewId) {
