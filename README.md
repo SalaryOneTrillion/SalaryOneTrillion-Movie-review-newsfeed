@@ -9,7 +9,8 @@ https://documenter.getpostman.com/view/30857800/2s9YeEareR
 
 ---
 # 💶 ERD 
-![img.png](img.png)
+![20231127_031648](https://github.com/SalaryOneTrillion/SalaryOneTrillion-Movie-review-newsfeed/assets/123870616/21b9bf51-4f8c-4b42-9657-90bd53f17d11)
+
 
 ---
 
