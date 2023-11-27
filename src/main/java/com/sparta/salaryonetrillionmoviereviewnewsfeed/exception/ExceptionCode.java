@@ -14,8 +14,8 @@ public enum ExceptionCode {
     CONFLICT_NICK_IN_USE(HttpStatus.CONFLICT, "중복된 닉네임 입니다."),
 
     // FORBIDDEN
-    FORBIDDEN_EDIT_ONLY_EDITED(HttpStatus.FORBIDDEN, "작성자만 수정 할 수 있습니다."),
-    FORBIDDEN_DELETE_ONLY_EDITED(HttpStatus.FORBIDDEN, "작성자만 삭제 할 수 있습니다."),
+    FORBIDDEN_UPDATE_ONLY_WRITER(HttpStatus.FORBIDDEN, "작성자만 수정 할 수 있습니다."),
+    FORBIDDEN_DELETE_ONLY_WRITER(HttpStatus.FORBIDDEN, "작성자만 삭제 할 수 있습니다."),
     FORBIDDEN_YOUR_NOT_COME_IN(HttpStatus.FORBIDDEN, "권한이 없습니다."),
 
     // NOT_FOUND
@@ -25,7 +25,7 @@ public enum ExceptionCode {
     NOT_FOUND_REVIEW_COMMENT(HttpStatus.NOT_FOUND, "해당 댓글은 존재하지 않습니다."),
 
     // BAD_REQUEST
-    BAD_REQUEST_ALREADY_EDITED_REVIEW(HttpStatus.BAD_REQUEST, "이미 리뷰를 작성 하셨습니다."),
+    BAD_REQUEST_ALREADY_WROTE_REVIEW(HttpStatus.BAD_REQUEST, "이미 리뷰를 작성 하셨습니다."),
     BAD_REQUEST_NOT_MATCH_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
 
 

@@ -37,9 +37,9 @@ public class UserController {
     @PutMapping("/{userId}")
     public ResponseEntity<String> updateProfile(@PathVariable Long userId,
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @Valid @RequestBody UserProfileEditRequestDto requestDto) {
+            @Valid @RequestBody UserProfileUpdateRequestDto requestDto) {
 
-        userService.editProfile(userId, userDetails.getUser(), requestDto);
+        userService.updateProfile(userId, userDetails.getUser(), requestDto);
 
         return ResponseEntity.status(200).body("프로필이 수정되었습니다.");
     }
