@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/movie")
 @RequiredArgsConstructor
 public class MovieAdminController {
 
     private final MovieAdminService movieAdminService;
 
-    @PostMapping("/updateMovies")
+    @PostMapping("/update")
     public ResponseEntity<String> updateMovies(@RequestBody MovieUpdateRequestDto requestDto) {
         movieAdminService.updateMovies(requestDto.getCurPage(), requestDto.getItemPerPage(),
                 requestDto.getOpenStartDt(), requestDto.getOpenEndDt());

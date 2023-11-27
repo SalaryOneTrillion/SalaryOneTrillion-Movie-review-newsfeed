@@ -10,13 +10,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/movies/{movieId}/reviews/{reviewId}/comments")
 @RequiredArgsConstructor
 public class ReviewCommentController {
 
     private final ReviewCommentService reviewCommentService;
 
-    @PostMapping("/{movieId}/reviews/{reviewId}/comments")
+    @PostMapping
     public ResponseEntity<String> postComment(@Valid @RequestBody ReviewCommentRequestDto requestDto,
                                               @PathVariable Long movieId, @PathVariable Long reviewId,
                                               @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -26,7 +26,7 @@ public class ReviewCommentController {
         return ResponseEntity.status(201).body("댓글이 등록되었습니다.");
     }
 
-    @PutMapping("/{movieId}/reviews/{reviewId}/comments/{commentId}")
+    @PutMapping("/{commentId}")
     public ResponseEntity<String> updateComment(@Valid @RequestBody ReviewCommentRequestDto requestDto,
                                                 @PathVariable Long movieId, @PathVariable Long reviewId, @PathVariable Long commentId,
                                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -36,7 +36,7 @@ public class ReviewCommentController {
         return ResponseEntity.status(200).body("댓글이 수정 되었습니다.");
     }
 
-    @DeleteMapping("/{movieId}/reviews/{reviewId}/comments/{commentId}")
+    @DeleteMapping("/{commentId}")
     public ResponseEntity<String> updateComment(@PathVariable Long movieId, @PathVariable String reviewId, @PathVariable Long commentId,
                                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
