@@ -44,7 +44,7 @@ public class UserController {
         return ResponseEntity.status(200).body("프로필이 수정되었습니다.");
     }
 
-    @PatchMapping("/{userId}/updateemail")
+    @PatchMapping("/{userId}/update/email")
     public ResponseEntity<String> updateEmail(@PathVariable Long userId, @AuthenticationPrincipal
     UserDetailsImpl userDetails, @Valid @RequestBody UserEmailRequestDto requestDto) {
 
@@ -53,7 +53,7 @@ public class UserController {
         return ResponseEntity.status(200).body("이메일이 수정되었습니다.");
     }
 
-    @PatchMapping("/{userId}/updatenickname")
+    @PatchMapping("/{userId}/update/nickname")
     public ResponseEntity<String> updateNickname(@PathVariable Long userId,
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @Valid @RequestBody UserNicknameDto requestDto) {
@@ -63,7 +63,7 @@ public class UserController {
         return ResponseEntity.status(200).body("닉네임이 수정되었습니다.");
     }
 
-    @PatchMapping("/{userId}/updatepassword")
+    @PatchMapping("/{userId}/update/password")
     public ResponseEntity<String> updatePassword(@PathVariable Long userId,
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @Valid @RequestBody UserPasswordDto requestDto) {
